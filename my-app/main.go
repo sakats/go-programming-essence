@@ -2,28 +2,23 @@ package main
 
 import "fmt"
 
-type Fruit int
-type Animal int
 
-const (
-	Apple Fruit = iota
-	Orange
-	Banana
-)
+// 例: Goでのエラー伝達
+// Goではエラーが発生し得る関数を呼び出した場合には、まずerrをチェックする
+// 即座に呼び出し元に返却することが推奨されている
+func FindUser(name string) (*User, error){
+	user, err : = findUserFromList(users, name)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
 
-const (
-	Monkey Animal = iota
-	Elephant
-	Pig
-)
-
-func main() {
-	fmt.Println("こんにちは せかい")
-
-	var fruit Fruit = Apple
-	fmt.Println(fruit)
-
-	//fruit = Elephant // Fruit型のfruitにAnimal型のElephantを代入するとエラー
-	fruit = Banana
-	fmt.Println(fruit)
+// この例ではFindUser関数から帰ってきたerrの内容に応じてログなどの処理を呼び出し元が行う
+func main(){
+	user, err := FindUser("Satoshi")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(user.Name)
 }
