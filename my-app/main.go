@@ -70,4 +70,10 @@ func main() {
 	x1 = x2
 	fmt.Println(x1)
 
+	// スライスから要素を削除する方法２
+	// 部分参照とcopyを使う(要素3を削除)
+	n := 3
+	x1 = x1[:n+copy(x1[n:], x1[n+1:])]
+	fmt.Println(x1)
+
 }
